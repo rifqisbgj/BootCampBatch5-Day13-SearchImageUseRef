@@ -1,9 +1,15 @@
 import React from "react";
 class SearchBar extends React.Component {
-  state = { term: "" };
+  constructor(props) {
+    super(props);
+    // menyimpan elemen textInput
+    this.textInput = React.createRef();
+  }
+
   onFormSubmit = (event) => {
     event.preventDefault();
-    this.props.onSubmit(this.state.term);
+    // akses value dari ref textInput
+    this.props.onSubmit(this.textInput.current.value);
   };
 
   render() {
@@ -12,11 +18,8 @@ class SearchBar extends React.Component {
         <form onSubmit={this.onFormSubmit} className="ui form">
           <div className="fied">
             <label> Image Search</label>
-            <input
-              type="text"
-              value={this.state.term}
-              onChange={(e) => this.setState({ term: e.target.value })}
-            />
+            {/* menghubungkan input dengan ref yg telah dibuat pada constructor */}
+            <input type="text" ref={this.textInput} />
           </div>
         </form>
       </div>
